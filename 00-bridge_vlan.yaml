@@ -1,0 +1,76 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eno2:
+      dhcp4: no
+      dhcp6: no
+    eno1:
+      dhcp4: yes
+      dhcp6: no
+  vlans:
+    home.20:
+      link: br0
+      id: 20
+    test.22:
+      link: br0
+      id: 22
+    preprod.23:
+      link: br0
+      id: 23
+    prod.24:
+      link: br0
+      id: 24
+    bastion.21:
+      link: br0
+      id: 21
+    bastion_mgmt.28:
+      link: br0
+      id: 28
+  bridges:
+    br0:
+      interfaces:
+        - eno2
+        #- enp2
+      dhcp4: yes
+      dhcp6: no
+      #addresses: [ 10.0.0.2/24 ]
+      #gateway4: 10.0.0.1
+      #nameservers:
+      #  addresses: [ 8.8.8.8,1.1.1.1 ]
+    test:
+      interfaces:
+        - test.22
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.100.1/24 ]
+    home:
+      interfaces:
+        - home.20
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
+    preprod:
+      interfaces:
+        - preprod.23
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
+    prod:
+      interfaces:
+        - prod.24
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
+    bastion:
+      interfaces:
+        - bastion.21
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
+    bastion_mgmt:
+      interfaces:
+        - bastion_mgmt.28
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
