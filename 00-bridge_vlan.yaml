@@ -2,11 +2,8 @@ network:
   version: 2
   renderer: networkd
   ethernets:
-    eno2:
-      dhcp4: no
-      dhcp6: no
     eno1:
-      dhcp4: yes
+      dhcp4: no
       dhcp6: no
   vlans:
     home.20:
@@ -21,18 +18,39 @@ network:
     prod.24:
       link: br0
       id: 24
-    bastion.21:
+    office.21:
       link: br0
       id: 21
     bastion_mgmt.28:
       link: br0
       id: 28
+    mgmt.31:
+      link: br0
+      id: 31
+    media.39:
+      link: br0
+      id: 39
+    proxy.40:
+      link: br0
+      id: 40
+    ansible.46:
+      link: br0
+      id: 46
+    moncore.56:
+      link: br0
+      id: 56
+    backup.30:
+      link: br0
+      id: 30
+    squid.55:
+      link: br0
+      id: 55
   bridges:
     br0:
       interfaces:
-        - eno2
+        - eno1
         #- enp2
-      dhcp4: yes
+      dhcp4: no
       dhcp6: no
       #addresses: [ 10.0.0.2/24 ]
       #gateway4: 10.0.0.1
@@ -44,9 +62,21 @@ network:
       dhcp4: no
       dhcp6: no
       #addresses: [ 10.0.100.1/24 ]
-    home:
+    mgmt:
       interfaces:
-        - home.20
+        - mgmt.31
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
+    moncore:
+      interfaces:
+        - moncore.56
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
+    ansible:
+      interfaces:
+        - ansible.46
       dhcp4: no
       dhcp6: no
       #addresses: [ 10.0.200.1/24 ]
@@ -62,15 +92,43 @@ network:
       dhcp4: no
       dhcp6: no
       #addresses: [ 10.0.200.1/24 ]
-    bastion:
+    office:
       interfaces:
-        - bastion.21
+        - office.21
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
+      #
+    media:
+      interfaces:
+        - media.39
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
+    proxy:
+      interfaces:
+        - proxy.40
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
+    backup:
+      interfaces:
+        - backup.30
+      dhcp4: no
+      dhcp6: no
+      #addresses: [ 10.0.200.1/24 ]
+    squid:
+      interfaces:
+        - squid.55
       dhcp4: no
       dhcp6: no
       #addresses: [ 10.0.200.1/24 ]
     bastion_mgmt:
       interfaces:
         - bastion_mgmt.28
-      dhcp4: no
+      dhcp4: yes
       dhcp6: no
-      #addresses: [ 10.0.200.1/24 ]
+      addresses: [ 10.8.1.2/24 ]
+      gateway4: 10.8.1.1
+      nameservers:
+        addresses: [ 10.17.2.2, 10.17.2.2  ]
